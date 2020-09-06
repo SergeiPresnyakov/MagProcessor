@@ -1,13 +1,13 @@
 import datetime as dt
 
 class MagProcessor:
-    def __init__(self, adress:str):
-        self.adress = adress
+    def __init__(self, address: str):
+        self.address = address
         self.data_set = {}
     
-    def create_data_set(self, mode:str):
+    def create_data_set(self, mode: str):
         self.mode = mode
-        with open(self.adress) as file:
+        with open(self.address) as file:
             content = file.readlines()
             content = [line.strip().split('\t') for line in content][8:]
 
