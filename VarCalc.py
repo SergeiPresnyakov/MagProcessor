@@ -45,9 +45,19 @@ class MagProcessor:
             avg_time = '0' + avg_time
         return avg_time
 
-    def interpolate_data(self, times=2):
+    def get_interpolation_times(self):
+        seconds = self.variation_interval
+        times = 0
+        while seconds % 2 == 0:
+            seconds //= 2
+            times += 1
+        return times
+
+    def interpolate_data(self):
+        self.times = self.get_interpolation_times()
+        print(self.times)
         if self.mode == 'variation':
-            for _ in range(times):
+            for _ in range(self.times):
                 self.variation_interval /= 2
                 self.pairs = self.split_to_pairs([row['time'] for row in sorted(self.data_set.values(), key=lambda x: x['time'])])
                 for pair in self.pairs:
@@ -109,7 +119,7 @@ def main():
     var_name = input('Файл с вариацией: ')        
     var = MagProcessor(f'{folder}\\{var_name}')
     var.create_data_set('variation')
-    var.interpolate_data(times=3)  # при интервале вариаций 120 секунд times=2 - интервал 30 сек, times=3 - интервал 15 секунд
+    var.interpolate_data()  # при интервале вариаций 120 секунд times=2 - интервал 30 сек, times=3 - интервал 15 секунд
 
     mag_name = input('Файл с рядовыми измерениями: ')
     mag = MagProcessor(f'{folder}\\{mag_name}')

@@ -94,7 +94,7 @@ class Window:
     def calculate(self):
         var = GUIMagProcessor(self.var_address)
         var.create_data_set('variation', self)
-        var.interpolate_data(times=3)
+        var.interpolate_data()
 
         mag = GUIMagProcessor(self.meas_address)
         mag.create_data_set('measurements', self)
