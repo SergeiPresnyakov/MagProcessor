@@ -100,6 +100,9 @@ class MagProcessor:
             if len(element['field']) == 7:
                 element['field'] = element['field'] + '0'
 
+            if len(element['var']) == 7:
+                element['var'] = element['var'] + '0'
+
         with open(name, 'w') as output:
             output.write('Field\tD\tTime\tPr\tPk\tVariation\tdT\n')
             for line in sorted(self.data_set, key=lambda x: (x['pr'], x['pk'])):
