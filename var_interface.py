@@ -84,10 +84,12 @@ class Window:
     def get_meas_address(self):
         self.meas_address = fd.askopenfilename()
         self.meas_address_field.config(text=self.meas_address)
+        self.result_message.config(text='')
 
     def get_var_address(self):
         self.var_address = fd.askopenfilename()
         self.var_address_field.config(text=self.var_address)
+        self.result_message.config(text='')
 
     def calculate(self):
         var = GUIMagProcessor(self.var_address)

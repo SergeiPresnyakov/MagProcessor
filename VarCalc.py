@@ -75,7 +75,8 @@ class MagProcessor:
     def calculate_dT(self, v):
         """Значение dT = разность измеренного поля и вариации в этот момент"""
         for time in self.data_set:
-            self.data_set[time]['dT'] = round(self.data_set[time]['field'] - v.data_set[self.closest_time(time, v.variation_interval)]['field'], 2)
+            self.data_set[time]['var'] = v.data_set[self.closest_time(time, v.variation_interval)]['field']
+            self.data_set[time]['dT'] = round(self.data_set[time]['field'] - self.data_set[time]['var'], 2)
 
     def write_to_file(self, name):
         """Записывает data_set в файл"""
@@ -85,14 +86,15 @@ class MagProcessor:
         for element in self.data_set:
             element['field'] = str(element['field'])
             element['dT'] = str(element['dT'])
+            element['var'] = str(element['var'])
 
             if len(element['field']) == 7:
                 element['field'] = element['field'] + '0'
 
         with open(name, 'w') as output:
-            output.write('Field\tD\tTime\tPr\tPk\tdT\n')
+            output.write('Field\tD\tTime\tPr\tPk\tVariation\tdT\n')
             for line in sorted(self.data_set, key=lambda x: (x['pr'], x['pk'])):
-                output.write(f"{line['field']}\t{line['diap']}\t{line['time']}\t{line['pr']}\t{line['pk']}\t{line['dT']}\n")
+                output.write(f"{line['field']}\t{line['diap']}\t{line['time']}\t{line['pr']}\t{line['pk']}\t{line['var']}\t{line['dT']}\n")
         print('[v] Файл записан')
 
 
