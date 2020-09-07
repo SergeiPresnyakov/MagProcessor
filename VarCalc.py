@@ -55,7 +55,6 @@ class MagProcessor:
 
     def interpolate_data(self):
         self.times = self.get_interpolation_times()
-        print(self.times)
         if self.mode == 'variation':
             for _ in range(self.times):
                 self.variation_interval /= 2
